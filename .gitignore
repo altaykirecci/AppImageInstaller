@@ -1,0 +1,8 @@
+
+
+# Disallow files in the test directory
+test/
+test/**
+
+# Disallow .lve files
+*.lve
