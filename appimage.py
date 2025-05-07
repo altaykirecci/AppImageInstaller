@@ -3,9 +3,22 @@ import shutil
 import subprocess
 import tempfile
 import argparse
+import json
 from configparser import ConfigParser
 
 HOME = os.path.expanduser("~")
+VERSION_FILE = os.path.join(HOME, ".local", "share", "appimage-versions.json")
+
+def load_versions():
+    if os.path.exists(VERSION_FILE):
+        with open(VERSION_FILE, 'r') as f:
+            return json.load(f)
+    return {}
+
+def save_versions(versions):
+    os.makedirs(os.path.dirname(VERSION_FILE), exist_ok=True)
+    with open(VERSION_FILE, 'w') as f:
+        json.dump(versions, f, indent=4)
 
 def extract_appimage(appimage_path, extract_dir):
     subprocess.run([appimage_path, "--appimage-extract"], cwd=extract_dir, check=True)
@@ -27,7 +40,8 @@ def parse_desktop_file(path):
         "Comment": entry.get("Comment", ""),
         "Categories": entry.get("Categories", ""),
         "Exec": entry.get("Exec", ""),
-        "Icon": entry.get("Icon", "")
+        "Icon": entry.get("Icon", ""),
+        "Version": entry.get("Version", "1.0")
     }
 
 def slugify(name):
@@ -47,6 +61,13 @@ def install_appimage(appimage_path, sandbox=True):
 
         data = parse_desktop_file(desktop_src)
         app_name = slugify(data["Name"])
+
+        versions = load_versions()
+        versions[app_name] = {
+            "version": data["Version"],
+            "path": appimage_path
+        }
+        save_versions(versions)
 
         bin_dir = os.path.join(HOME, ".local", "bin")
         os.makedirs(bin_dir, exist_ok=True)
@@ -134,6 +155,11 @@ def uninstall_app(app_name):
             else:
                 print(f"{key} bulunamadı: {path}")
 
+        versions = load_versions()
+        if actual_app_name in versions:
+            del versions[actual_app_name]
+            save_versions(versions)
+
         subprocess.run(["update-desktop-database", os.path.join(HOME, ".local", "share", "applications")])
         print("Kaldırma işlemi tamamlandı.")
     except Exception as e:
@@ -141,11 +167,26 @@ def uninstall_app(app_name):
     finally:
         shutil.rmtree(temp_dir)
 
+def list_installed_apps():
+    versions = load_versions()
+    if not versions:
+        print("Kurulu uygulama bulunamadı.")
+        return
+
+    print("\nKurulu Uygulamalar:")
+    print("-" * 50)
+    for app_name, info in versions.items():
+        print(f"Uygulama: {app_name}")
+        print(f"Versiyon: {info['version']}")
+        print(f"Konum: {info['path']}")
+        print("-" * 50)
+
 def main():
     parser = argparse.ArgumentParser(description="AppImage Kurulum/Kaldırma Aracı")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-i", "--install", metavar="PATH", help="AppImage dosyasının tam yolu")
     group.add_argument("-u", "--uninstall", metavar="NAME", help="Kaldırılacak uygulamanın adı (örnek: firefox)")
+    group.add_argument("-l", "--list", action="store_true", help="Kurulu uygulamaları listele")
     parser.add_argument("--sandbox", action="store_true", help="AppImage için sandbox özelliğini devre dışı bırak")
 
     args = parser.parse_args()
@@ -157,6 +198,8 @@ def main():
         install_appimage(args.install, sandbox=args.sandbox)
     elif args.uninstall:
         uninstall_app(args.uninstall)
+    elif args.list:
+        list_installed_apps()
 
 if __name__ == "__main__":
     main()

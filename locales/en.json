@@ -1,0 +1,23 @@
+{
+    "installing": "Installing AppImage...",
+    "error_desktop": "ERROR: .desktop file not found.",
+    "icon_not_found": "Icon not found, may not have a desktop icon.",
+    "installation_complete": "Installation completed: {name}",
+    "error_occurred": "An error occurred: {error}",
+    "uninstalling": "Uninstalling {name}...",
+    "appimage_not_found": "AppImage not found: {path}",
+    "deleted": "{key} deleted: {path}",
+    "not_found": "{key} not found: {path}",
+    "uninstall_complete": "Uninstallation completed.",
+    "invalid_appimage": "Invalid AppImage file provided.",
+    "no_installed_apps": "No installed applications found.",
+    "installed_apps": "Installed Applications:",
+    "app": "Application",
+    "version": "Version",
+    "location": "Location",
+    "help_install": "AppImage file path",
+    "help_uninstall": "Application name to uninstall (e.g., firefox)",
+    "help_list": "List installed applications",
+    "help_sandbox": "Disable sandbox feature for AppImage",
+    "help_lang": "Language (en, tr, de, fr)"
+} 

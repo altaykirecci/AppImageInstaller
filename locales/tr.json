@@ -1,0 +1,23 @@
+{
+    "installing": "AppImage kuruluyor...",
+    "error_desktop": "HATA: .desktop dosyası bulunamadı.",
+    "icon_not_found": "İkon bulunamadı, masaüstü simgesi olmayabilir.",
+    "installation_complete": "Kurulum tamamlandı: {name}",
+    "error_occurred": "Hata oluştu: {error}",
+    "uninstalling": "{name} kaldırılıyor...",
+    "appimage_not_found": "AppImage bulunamadı: {path}",
+    "deleted": "{key} silindi: {path}",
+    "not_found": "{key} bulunamadı: {path}",
+    "uninstall_complete": "Kaldırma işlemi tamamlandı.",
+    "invalid_appimage": "Geçerli bir AppImage dosyası girilmedi.",
+    "no_installed_apps": "Kurulu uygulama bulunamadı.",
+    "installed_apps": "Kurulu Uygulamalar:",
+    "app": "Uygulama",
+    "version": "Versiyon",
+    "location": "Konum",
+    "help_install": "AppImage dosyasının tam yolu",
+    "help_uninstall": "Kaldırılacak uygulamanın adı (örnek: firefox)",
+    "help_list": "Kurulu uygulamaları listele",
+    "help_sandbox": "AppImage için sandbox özelliğini devre dışı bırak",
+    "help_lang": "Dil (en, tr, de, fr)"
+} 

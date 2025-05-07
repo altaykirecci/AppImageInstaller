@@ -1,0 +1,23 @@
+{
+    "installing": "Installation de l'AppImage...",
+    "error_desktop": "ERREUR: Fichier .desktop non trouvé.",
+    "icon_not_found": "Icône non trouvée, peut ne pas avoir d'icône de bureau.",
+    "installation_complete": "Installation terminée: {name}",
+    "error_occurred": "Une erreur s'est produite: {error}",
+    "uninstalling": "Désinstallation de {name}...",
+    "appimage_not_found": "AppImage non trouvée: {path}",
+    "deleted": "{key} supprimé: {path}",
+    "not_found": "{key} non trouvé: {path}",
+    "uninstall_complete": "Désinstallation terminée.",
+    "invalid_appimage": "Fichier AppImage invalide fourni.",
+    "no_installed_apps": "Aucune application installée trouvée.",
+    "installed_apps": "Applications installées:",
+    "app": "Application",
+    "version": "Version",
+    "location": "Emplacement",
+    "help_install": "Chemin du fichier AppImage",
+    "help_uninstall": "Nom de l'application à désinstaller (ex: firefox)",
+    "help_list": "Lister les applications installées",
+    "help_sandbox": "Désactiver la fonction sandbox pour AppImage",
+    "help_lang": "Langue (en, tr, de, fr)"
+} 
