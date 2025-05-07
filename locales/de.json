@@ -1,13 +1,13 @@
 {
     "installing": "AppImage wird installiert...",
     "error_desktop": "FEHLER: .desktop-Datei nicht gefunden.",
-    "icon_not_found": "Symbol nicht gefunden, möglicherweise kein Desktop-Symbol.",
+    "icon_not_found": "Symbol nicht gefunden, möglicherweise kein Desktop-Symbol vorhanden.",
     "installation_complete": "Installation abgeschlossen: {name}",
     "error_occurred": "Ein Fehler ist aufgetreten: {error}",
     "uninstalling": "{name} wird deinstalliert...",
     "appimage_not_found": "AppImage nicht gefunden: {path}",
-    "deleted": "{key} gelöscht: {path}",
-    "not_found": "{key} nicht gefunden: {path}",
+    "deleted": "{type} gelöscht: {path}",
+    "not_found": "{type} nicht gefunden: {path}",
     "uninstall_complete": "Deinstallation abgeschlossen.",
     "invalid_appimage": "Ungültige AppImage-Datei angegeben.",
     "no_installed_apps": "Keine installierten Anwendungen gefunden.",
@@ -16,8 +16,12 @@
     "version": "Version",
     "location": "Speicherort",
     "help_install": "AppImage-Dateipfad",
-    "help_uninstall": "Name der zu deinstallierenden Anwendung (z.B. firefox)",
+    "help_uninstall": "Zu deinstallierende Anwendung (z.B. firefox)",
     "help_list": "Installierte Anwendungen auflisten",
     "help_sandbox": "Sandbox-Funktion für AppImage deaktivieren",
-    "help_lang": "Sprache (en, tr, de, fr)"
+    "help_lang": "Sprache (en, tr, de, fr)",
+    "help_version": "Versionsinformationen anzeigen",
+    "help_report_translations": "Bericht über fehlende Übersetzungen erstellen",
+    "help_clean": "Original AppImage-Datei nach der Installation löschen",
+    "original_deleted": "Original AppImage-Datei gelöscht: {path}"
 } 

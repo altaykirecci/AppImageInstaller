@@ -6,8 +6,8 @@
     "error_occurred": "An error occurred: {error}",
     "uninstalling": "Uninstalling {name}...",
     "appimage_not_found": "AppImage not found: {path}",
-    "deleted": "{key} deleted: {path}",
-    "not_found": "{key} not found: {path}",
+    "deleted": "{type} deleted: {path}",
+    "not_found": "{type} not found: {path}",
     "uninstall_complete": "Uninstallation completed.",
     "invalid_appimage": "Invalid AppImage file provided.",
     "no_installed_apps": "No installed applications found.",
@@ -19,5 +19,9 @@
     "help_uninstall": "Application name to uninstall (e.g., firefox)",
     "help_list": "List installed applications",
     "help_sandbox": "Disable sandbox feature for AppImage",
-    "help_lang": "Language (en, tr, de, fr)"
+    "help_lang": "Language (en, tr, de, fr)",
+    "help_version": "Show version information",
+    "help_report_translations": "Generate a report of missing translations",
+    "help_clean": "Delete original AppImage file after installation",
+    "original_deleted": "Original AppImage file deleted: {path}"
 } 
