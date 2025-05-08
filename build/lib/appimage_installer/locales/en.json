@@ -22,5 +22,6 @@
     "path_exists_not_dir": "Path exists but is not a directory",
     "invalid_desktop_file": "Invalid desktop file",
     "path_too_long": "Path too long",
-    "original_deleted": "Original AppImage file deleted: {path}"
+    "original_deleted": "Original AppImage file deleted: {path}",
+    "os_check_warning": "This application is only supported on Linux operating systems."
 } 

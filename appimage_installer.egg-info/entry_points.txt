@@ -1,2 +1,2 @@
 [console_scripts]
-appimage-installer = appimage:main
+appimage-installer = appimage_installer:main

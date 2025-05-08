@@ -13,6 +13,22 @@ from pathlib import Path
 import re
 import sys
 
+def check_linux_system():
+    """Check if the system is Linux during installation."""
+    if sys.platform != "linux":
+        print("\nError: Operating System Compatibility Issue")
+        print("=" * 50)
+        print("This application is specifically designed for Linux systems only.")
+        print("It is intended for managing AppImage packages and integrating them")
+        print("into your Linux desktop environment.")
+        print("\nYour current operating system:", sys.platform)
+        print("\nInstallation has been blocked to prevent compatibility issues.")
+        print("=" * 50)
+        sys.exit(1)
+
+# Run check during installation
+check_linux_system()
+
 HOME = os.path.expanduser("~")
 VERSION_FILE = os.path.join(HOME, ".local", "share", "appimage-versions.json")
 ALLOWED_EXTENSIONS = {'.AppImage', '.appimage'}
@@ -35,34 +51,24 @@ def load_language(lang):
         if getattr(sys, 'frozen', False):
             # Running in a PyInstaller bundle
             base_dir = sys._MEIPASS
-            print(f"Running in PyInstaller bundle, base_dir: {base_dir}")
         else:
             # Running in a normal Python environment
             base_dir = os.path.dirname(__file__)
-            print(f"Running in normal Python environment, base_dir: {base_dir}")
 
         # Try to load the requested language file
         lang_file = os.path.join(base_dir, "locales", f"{lang}.json")
-        print(f"Trying to load language file: {lang_file}")
         
         if not os.path.exists(lang_file):
-            print(f"Language file {lang_file} not found, falling back to English")
             # Fall back to English if the requested language is not available
             lang_file = os.path.join(base_dir, "locales", "en.json")
-            print(f"Trying to load English language file: {lang_file}")
         
         if not os.path.exists(lang_file):
-            print(f"Language file {lang_file} not found")
             return None
             
-        print(f"Loading language file: {lang_file}")
         with open(lang_file, 'r', encoding='utf-8') as f:
             _lang_data = json.load(f)
-            print(f"Language data loaded: {_lang_data}")
         return _lang_data
     except Exception as e:
-        print(f"Error loading language file: {e}")
-        traceback.print_exc()
         return None
 
 def _(key, **kwargs):
@@ -425,24 +431,70 @@ def list_installed_apps():
         print(f"{_('location')}: {info['path']}")
         print("-" * 50)
 
+def report_missing_translations():
+    """Reports missing translations by comparing with English."""
+    en_data = load_language("en")
+    if not en_data:
+        print(_("error", message="Could not load English translations"))
+        return
+
+    for lang in ["de", "fr", "tr"]:
+        lang_data = load_language(lang)
+        if not lang_data:
+            print(f"Missing translations for {lang}")
+            continue
+
+        missing = set(en_data.keys()) - set(lang_data.keys())
+        if missing:
+            print(f"\nMissing translations in {lang}:")
+            for key in sorted(missing):
+                print(f"  {key}: {en_data[key]}")
+
 def main():
+    print(f"\nLinux systems AppImage Installer v{get_version()}.nAltay Kireççi\nopriori\nwww.opriori.com.tr\n")
+
+    # Check operating system
+    if sys.platform != "linux":
+        print(_("os_check_warning"))
+        sys.exit(1)
+
     # First parse language argument
     pre_parser = argparse.ArgumentParser(add_help=False)
     pre_parser.add_argument("-L", "--lang", default="en")
+    pre_parser.add_argument("-al", "--available-languages", action="store_true")
     args, remaining = pre_parser.parse_known_args()
+
+    if args.available_languages:
+        print("\nAvailable Languages:")
+        print("=" * 50)
+        for lang in ["en", "tr", "de", "fr"]:
+            print(f"- {lang}")
+        print("=" * 50)
+        sys.exit(0)
 
     # Load language
     load_language(args.lang)
 
     # Create main parser
     parser = argparse.ArgumentParser(description="AppImage Installer")
-    parser.add_argument("-i", "--install", help=_("help_install"))
-    parser.add_argument("-u", "--uninstall", help=_("help_uninstall"))
-    parser.add_argument("-l", "--list", action="store_true", help=_("help_list"))
-    parser.add_argument("-s", "--sandbox", action="store_true", help=_("help_sandbox"))
+    subparsers = parser.add_subparsers(dest="command", help="Commands")
+
+    # Install command
+    install_parser = subparsers.add_parser("install", help=_("help_install"))
+    install_parser.add_argument("appimage_path", help="Path to the AppImage file")
+    install_parser.add_argument("-s", "--sandbox", action="store_true", help=_("help_sandbox"))
+    install_parser.add_argument("-c", "--clean", action="store_true", help=_("help_clean"))
+
+    # Uninstall command
+    uninstall_parser = subparsers.add_parser("uninstall", help=_("help_uninstall"))
+    uninstall_parser.add_argument("app_name", help="Name of the application to uninstall")
+
+    # List command
+    list_parser = subparsers.add_parser("list", help=_("help_list"))
+
+    # Common arguments
     parser.add_argument("-L", "--lang", help=_("help_lang"), default="en")
     parser.add_argument("-v", "--version", action="store_true", help=_("help_version"))
-    parser.add_argument("-c", "--clean", action="store_true", help=_("help_clean"))
     parser.add_argument("--report-translations", action="store_true", help=_("help_report_translations"))
 
     args = parser.parse_args()
@@ -452,11 +504,14 @@ def main():
             print(_("version_info", version=get_version()))
             return
 
-        if args.install:
-            install_appimage(args.install, not args.sandbox)
-        elif args.uninstall:
-            uninstall_app(args.uninstall)
-        elif args.list:
+        if args.command == "install":
+            install_appimage(args.appimage_path, not args.sandbox)
+            if args.clean and os.path.exists(args.appimage_path):
+                os.remove(args.appimage_path)
+                print(_("original_deleted", path=args.appimage_path))
+        elif args.command == "uninstall":
+            uninstall_app(args.app_name)
+        elif args.command == "list":
             list_installed_apps()
         elif args.report_translations:
             report_missing_translations()

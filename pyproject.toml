@@ -4,21 +4,25 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "appimage-installer"
-version = "1.0.0"
-description = "AppImage kurulum ve yönetim aracı"
+version = "1.0.7"
+description = "AppImage installer for Linux"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Altay Kirecci", email = "altay.kirecci@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.6"
+license = {text = "MIT"}
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: POSIX :: Linux",
+    "Operating System :: POSIX :: Linux"
+]
+dependencies = [
+    "setuptools>=42"
 ]
 
 [project.scripts]
-appimage-installer = "appimage:main"
+appimage-installer = "appimage_installer:main"
 
 [tool.setuptools]
+packages = ["appimage_installer", "appimage_installer.locales"]
 package-data = { "appimage_installer" = ["locales/*.json"] } 

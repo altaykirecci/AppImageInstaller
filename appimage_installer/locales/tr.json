@@ -35,5 +35,6 @@
     "absolute_path_not_allowed": "Mutlak yol kullanılamaz",
     "path_exists_not_dir": "Yol mevcut ancak bir dizin değil",
     "invalid_desktop_file": "Geçersiz desktop dosyası",
-    "path_too_long": "Yol çok uzun"
+    "path_too_long": "Yol çok uzun",
+    "os_check_warning": "Bu uygulama sadece Linux işletim sistemlerinde desteklenmektedir."
 } 
