@@ -1,0 +1,14 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+appimage_installer/__init__.py
+appimage_installer.egg-info/PKG-INFO
+appimage_installer.egg-info/SOURCES.txt
+appimage_installer.egg-info/dependency_links.txt
+appimage_installer.egg-info/entry_points.txt
+appimage_installer.egg-info/top_level.txt
+appimage_installer/locales/de.json
+appimage_installer/locales/en.json
+appimage_installer/locales/fr.json
+appimage_installer/locales/tr.json

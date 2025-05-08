@@ -21,4 +21,4 @@ classifiers = [
 appimage-installer = "appimage:main"
 
 [tool.setuptools]
-package-data = { "appimage-installer" = ["locales/*.json"] } 
+package-data = { "appimage_installer" = ["locales/*.json"] } 

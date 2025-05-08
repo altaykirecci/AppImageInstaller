@@ -1,44 +1,68 @@
 # AppImage Installer
 
-AppImage dosyalarını kolayca kurmanızı ve yönetmenizi sağlayan bir Python aracı.
+A command-line tool for installing and managing AppImage applications on Linux.
 
-## Özellikler
+## Features
 
-- AppImage dosyalarını kurma
-- Kurulu AppImage'ları kaldırma
-- Sandbox modu desteği
-- Versiyon yönetimi
-- Kurulu uygulamaları listeleme
+- Install AppImage applications
+- Uninstall installed applications
+- List installed applications
+- Multi-language support (English, Turkish, German, French)
+- Sandbox support
+- Clean installation option
 
-## Kurulum
+## Installation
+
+### From Source
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/appimage-installer.git
+cd appimage-installer
+
+# Install the package
 pip install .
 ```
 
-## Kullanım
+### Using PyInstaller (Standalone Binary)
 
 ```bash
-# Uygulama kurma
-appimage-installer -i /path/to/app.AppImage
+# Build the standalone binary
+pyinstaller --onefile --name appimage-installer appimage_installer/__init__.py
 
-# Sandbox modu ile kurma
-appimage-installer -i /path/to/app.AppImage --sandbox
-
-# Kurulu uygulamaları listeleme
-appimage-installer -l
-
-# Uygulama kaldırma
-appimage-installer -u app_name
+# The binary will be created in the dist directory
 ```
 
-## Versiyon Geçmişi
+## Usage
 
-Detaylı versiyon geçmişi için [CHANGELOG.md](CHANGELOG.md) dosyasına bakın.
+```bash
+# Install an AppImage
+appimage-installer -i /path/to/app.AppImage
 
-## Lisans
+# Install with sandbox disabled
+appimage-installer -i /path/to/app.AppImage -s
 
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+# Install and delete original file
+appimage-installer -i /path/to/app.AppImage -c
+
+# Uninstall an application
+appimage-installer -u appname
+
+# List installed applications
+appimage-installer -l
+
+# Show version
+appimage-installer -v
+
+# Change language
+appimage-installer -L tr  # Turkish
+appimage-installer -L de  # German
+appimage-installer -L fr  # French
+```
+
+## License
+
+MIT License
 
 ## Author
 
